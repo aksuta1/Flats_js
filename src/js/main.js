@@ -7,7 +7,7 @@ import EventImitter from './utils/EventEmitter';
 
 const state = {
 	results: [],
-	emitter: new EventImitter()
+	emitter: new EventImitter(),
 }
 
 //тестирование. после тестирования удалить

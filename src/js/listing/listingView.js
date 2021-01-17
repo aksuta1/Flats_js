@@ -10,9 +10,9 @@ export function render (){
   document.querySelector('#app').insertAdjacentHTML('beforeend', markup);
 
 }
-
-    
+  
 export function renderCard (object){
+
     const listingContainer = document.querySelector('#listingContainer');
 
     const markup = `<article class="col-md-4">
@@ -20,22 +20,22 @@ export function renderCard (object){
                         <a href="object.html" class="card">
                             <div class="card__header">
                                 <div class="card__title">
-                                    ЖК Генеральский
+                                    ЖК ${object.complex_name}
                                 </div>
                                 <div class="card__like">
                                     <i class="fas fa-heart"></i>
                                 </div>
                             </div>
                             <div class="card__img">
-                                <img src="img/flat-plan.png" alt="План квартиры" />
+                                <img src="${object.image}" alt="План квартиры" />
                             </div>
                             <div class="card__desc">
                                 <div class="card__price">
                                     <div class="card__price-total">
-                                        4 200 000 ₽
+                                        ${object.price_total} ₽
                                     </div>
                                     <div class="card__price-per-meter">
-                                        64 000 ₽/м2
+                                    ${object.price_sqr_m} ₽/м2
                                     </div>
                                 </div>
 
@@ -45,24 +45,30 @@ export function renderCard (object){
                                         <div class="params__definition">
                                             Комнат
                                         </div>
-                                        <div class="params__value">1</div>
+                                        <div class="params__value">${object.rooms}</div>
                                     </div>
                                     <div class="params__item">
                                         <div class="params__definition">
                                             Площадь
                                         </div>
-                                        <div class="params__value">56</div>
+                                        <div class="params__value">${object.square}</div>
                                     </div>
                                 </div>
                                 <!-- //card__params params -->
                             </div>
                             <div class="card__footer">
-                                <div class="card__art">ГЕН-112-42</div>
-                                <div class="card__floor">Этаж 4 из 12</div>
+                                <div class="card__art">${object.scu}</div>
+                                <div class="card__floor">Этаж ${object.floor} из ${object.floors_total}</div>
                             </div>
                         </a>
                         <!-- // card -->
                     </article>`;
 
     listingContainer.insertAdjacentHTML('beforeend', markup);
+}
+
+export function clearListingContainer(){
+    const listingContainer = document.querySelector('#listingContainer');
+    listingContainer.innerHTML = '';
+
 }

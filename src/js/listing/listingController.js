@@ -1,21 +1,23 @@
 import * as view from './listingView';
 
+export default function (state) {
+	console.log('Component Listing started!');
 
-export default function(state){
-  console.log('Component Listing started!');
+	// Рендер контейнера для карточек
+	view.render();
 
-  //рендер контейнера для карточек
-  view.render();
+	// Рендер карточек
+	state.results.forEach(function (item) {
+		view.renderCard(item);
+	});
 
-  //рендер карточек
-  state.results.forEach(function(item){
-view.renderCard(item)
-  });
-  
+	state.emitter.subscribe('event:render-listing', () => {
+        // Очистить контейнер с карточками
+        view.clearListingContainer();
 
-  state.emitter.subscribe('event:render-listing', ()=>{
-      console.log('FUNCTION STARTED!!!');
-      console.log(state.results);
-
-  });
+        // Отрендерить карточки
+        state.results.forEach(function (item) {
+			view.renderCard(item);
+		});
+	});
 }

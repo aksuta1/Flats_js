@@ -1,50 +1,48 @@
 import Filter from './filterModel';
-
 import * as view from './filterView';
 
 export default async function (state) {
+	// Создаем объект фильтьра
+	if (!state.filter) state.filter = new Filter();
 
-  //создание обьекта фильтра
-  if (!state.filter) state.filter = new Filter;
+	// Получение параметров для фильтра
+	await state.filter.getParams();
 
-  //получение параметров для фильтра 
-  await state.filter.getParams();
+	// Отрисовка фильтра
+	view.render(state.filter.params);
 
-  view.render(state.filter.params);
+	// Делаем запрос на сервер
+	await state.filter.getResults();
+	state.results = state.filter.result;
 
-  // делаем запрос на сервер 
-  await state.filter.getResults();
-  state.results = state.filter.result;
+	// Обновляем счетчик на кнопке
+	view.changeButtonText(state.filter.result.length);
 
+	// Прослушка событий формы
+	const form = document.querySelector('#filter-form');
 
-  //обновляем счетчик на кнопке 
-  view.changeButtonText(state.filter.result.length);
+	// Изменение формы
+	form.addEventListener('change', async function (e) {
+		e.preventDefault();
+		state.filter.query = view.getInput();
+		await state.filter.getResults();
+		state.results = state.filter.result;
+		view.changeButtonText(state.filter.result.length);
+	});
 
-  // Прослушка событий формы
-  const form = document.querySelector('#filter-form');
+	// Сброс формы
+	form.addEventListener('reset', async function () {
+		state.filter.query = '';
+		await state.filter.getResults();
+		view.changeButtonText(state.filter.result.length);
+	});
 
-  form.addEventListener('change', async function (e) {
-    e.preventDefault();
-    state.filter.query = view.getInput();
-    await state.filter.getResults();
-    view.changeButtonText(state.filter.result.length);
-  })
-
-  //сброс формы
-  form.addEventListener('reset', async function () {
-    state.filter.query = '';
-    await state.filter.getResults();
-    state.results = state.filter.result;
-    view.changeButtonText(state.filter.result.length);
-  })
-
-
-  //отправка формы
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    console.log("submit!!!")
-    state.emitter.emit('event:render-listing', {});
-  });
+	// Отправка формы
+	form.addEventListener('submit', function (e) {
+		e.preventDefault();
+		console.log('SUBMIT!!!!!');
+		state.emitter.emit('event:render-listing', {});
+	});
 
 
 
