@@ -24,7 +24,17 @@ export default async function (state) {
   form.addEventListener('change', async function (e) {
     e.preventDefault();
     state.filter.query = view.getInput();
-    await state.filter.getResults(); 
+    await state.filter.getResults();
     view.changeButtonText(state.filter.result.length);
-   })
+  })
+
+  form.addEventListener('reset', async function () {
+    state.filter.query = '';
+    await state.filter.getResults();
+    view.changeButtonText(state.filter.result.length);
+
+  })
+
+
+
 }

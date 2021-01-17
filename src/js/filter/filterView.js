@@ -108,7 +108,7 @@ export function render(params){
                 </div>
                 <div class="filter__buttons">
                     <button class="filter__show">Показать объекты</button>
-                    <button class="filter__reset">Сбросить фильтр</button>
+                    <button type = "reset" class="filter__reset">Сбросить фильтр</button>
                 </div>
             </form>
             <!-- // Filter -->`;
