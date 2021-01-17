@@ -3,7 +3,9 @@ import 'url-search-params-polyfill';
 const elements = {
 	filterSelect: document.getElementsByClassName('filter__dropdown'),
 	filterRooms: document.getElementsByClassName('rooms__checkbox'),
-	filterFields: document.getElementsByClassName('range__input'),
+    filterFields: document.getElementsByClassName('range__input'),
+    filterSubmit: document.getElementsByClassName('filter__show'),
+
 };
 
 export function render(params){
@@ -117,7 +119,23 @@ export function render(params){
 }
 
 export function changeButtonText (number){
-    document.getElementsByClassName('filter__show')[0].innerText = `Показать ${number} объектов`;
+
+    const btn = elements.filterSubmit[0];
+
+    let message; 
+
+   if (number > 0){
+       message = `Показать ${number} объектов`;
+   } else {
+    message = 'Обьекты не найденны. Изменить условия поиска';
+
+   }
+
+   btn.innerText = message;
+
+   // Disable btn on empty result
+   btn.disabled = number === 0 ? true : false;
+
 }
 
 export function getInput() {

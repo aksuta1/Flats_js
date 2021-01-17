@@ -28,11 +28,19 @@ export default async function (state) {
     view.changeButtonText(state.filter.result.length);
   })
 
+  //сброс формы
   form.addEventListener('reset', async function () {
     state.filter.query = '';
     await state.filter.getResults();
     view.changeButtonText(state.filter.result.length);
+  })
 
+
+    //отправка формы
+form.addEventListener('submit',   function (e) {
+  e.preventDefault();
+  console.log("submit!!!")
+    
   })
 
 
