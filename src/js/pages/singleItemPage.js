@@ -1,5 +1,10 @@
-export default function (){
-  const markup = `<div class="container"><h1>Item</h1></div>`;
-  document.querySelector('#app').innerHTML = markup;
+import singleItem from './../singleItem/singleItemController';
 
+export default function () {
+
+	// Очищаем контейнер приложения
+	document.querySelector('#app').innerHTML = "";
+
+	// Запускаем компонент singleItem
+	singleItem(state);
 }
