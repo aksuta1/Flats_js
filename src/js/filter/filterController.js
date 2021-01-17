@@ -14,6 +14,8 @@ export default async function (state) {
 
   // делаем запрос на сервер 
   await state.filter.getResults();
+  state.results = state.filter.result;
+
 
   //обновляем счетчик на кнопке 
   view.changeButtonText(state.filter.result.length);
@@ -32,16 +34,17 @@ export default async function (state) {
   form.addEventListener('reset', async function () {
     state.filter.query = '';
     await state.filter.getResults();
+    state.results = state.filter.result;
     view.changeButtonText(state.filter.result.length);
   })
 
 
-    //отправка формы
-form.addEventListener('submit',   function (e) {
-  e.preventDefault();
-  console.log("submit!!!")
-    
-  })
+  //отправка формы
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    console.log("submit!!!")
+    state.emitter.emit('event:render-listing', {});
+  });
 
 
 
