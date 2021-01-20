@@ -3,4 +3,8 @@ export default class Favourites{
     this.favs=[];
     //todo
   }
+
+  addFav(id){
+    this.favs.push(id);
+  }
 }

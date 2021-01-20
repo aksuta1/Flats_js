@@ -2,8 +2,7 @@ import SingleItem from './singleItemModel.js';
 import * as view from './singleItemView.js';
 
 export default async function (state) {
-	console.log('Single Item Controller STARTED!!!');
-
+ 
 	// Создаем новый объект singleItem
 	state.singleItem = new SingleItem(state.routeParams);
 
@@ -56,5 +55,10 @@ export default async function (state) {
 
     });
 
+// клик по кнопке "добавить в избранное"
+document.querySelector('#addToFavouriteBtn').addEventListener('click',()=>{
+    console.log('Fav')
 
+    state.favourites.addFav(state.singleItem.id);
+})
 }
