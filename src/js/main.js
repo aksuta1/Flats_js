@@ -4,10 +4,12 @@ import favouritesPage from './pages/favouritesPage';
 import bidsPage from './pages/bidsPage';
 import errorPage from './pages/errorPage';
 import EventImitter from './utils/EventEmitter';
+import Favourites from './favourites/favouritesModel';
 
 const state = {
 	results: [],
 	emitter: new EventImitter(),
+	favourites: new Favourites()
 }
 
 //тестирование. после тестирования удалить
