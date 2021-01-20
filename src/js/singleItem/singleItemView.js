@@ -185,3 +185,7 @@ export function getInput () {
     formData.phone = document.querySelector('#form-phone').value;
     return formData;
 }
+export function clearInput(){
+    document.querySelector('#form-name').value = '';
+    document.querySelector('#form-phone').value = '';
+}
