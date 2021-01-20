@@ -59,6 +59,6 @@ export default async function (state) {
 document.querySelector('#addToFavouriteBtn').addEventListener('click',()=>{
     console.log('Fav')
 
-    state.favourites.addFav(state.singleItem.id);
+    state.favourites.toggleFav(state.singleItem.id);
 })
 }
