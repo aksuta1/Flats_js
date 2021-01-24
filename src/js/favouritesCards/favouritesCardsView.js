@@ -1,36 +1,38 @@
-export function render (){
-  const markup = `<div class="cards-wrapper">
-                      <div class="container p-0 pt-5">
-                          <div id="listingContainer" class="row">
+function renderContainer() {
+  const markup = `
+    <div class="container p-0 mb-5">
+      <div class="heading-1">Избранное</div>
+    </div>
+    <div class="cards-wrapper">
+       <div class="container p-0">
+          <div id="cardsHolder" class="row">   
+          </div>
+       </div>
+    </div>
+  `;
+  document.querySelector('#app').insertAdjacentHTML('afterbegin', markup);
+} 
 
-                           </div>
-                      </div>
-                  </div>`;
+function renderCard(object) {
+	const cardsContainer = document.querySelector('#cardsHolder');
 
-  document.querySelector('#app').insertAdjacentHTML('beforeend', markup);
-
-}
-  
-export function renderCard (object, isFaved){
-
-    const listingContainer = document.querySelector('#listingContainer');
-
-    const markup = `<article class="col-md-4">
+	const markup = `<article class="col-md-4">
                         <!-- card -->
-                        <a href="#/item/${object.id}" class="card" data-id="${object.id}">
+                        <a href="#/item/${object.id}" class="card" data-id="${
+		object.id
+	}">
                             <div class="card__header">
                                 <div class="card__title">
                                     ЖК ${object.complex_name}
                                 </div>
-                                <div class="
-                                card__like
-                                ${isFaved ? 'card__like--active':''}
-                                ">
+                                <div class="card__like card__like--active">
                                     <i class="fas fa-heart"></i>
                                 </div>
                             </div>
                             <div class="card__img">
-                                <img src="${object.image}" alt="План квартиры" />
+                                <img src="${
+									object.image
+								}" alt="План квартиры" />
                             </div>
                             <div class="card__desc">
                                 <div class="card__price">
@@ -38,7 +40,7 @@ export function renderCard (object, isFaved){
                                         ${object.price_total} ₽
                                     </div>
                                     <div class="card__price-per-meter">
-                                    ${object.price_sqr_m} ₽/м2
+                                        ${object.price_sq_m} ₽/м2
                                     </div>
                                 </div>
 
@@ -48,38 +50,47 @@ export function renderCard (object, isFaved){
                                         <div class="params__definition">
                                             Комнат
                                         </div>
-                                        <div class="params__value">${object.rooms}</div>
+                                        <div class="params__value">${
+											object.rooms
+										}</div>
                                     </div>
                                     <div class="params__item">
                                         <div class="params__definition">
                                             Площадь
                                         </div>
-                                        <div class="params__value">${object.square}</div>
+                                        <div class="params__value">${
+											object.square
+										}</div>
                                     </div>
                                 </div>
                                 <!-- //card__params params -->
                             </div>
                             <div class="card__footer">
                                 <div class="card__art">${object.scu}</div>
-                                <div class="card__floor">Этаж ${object.floor} из ${object.floors_total}</div>
+                                <div class="card__floor">Этаж ${
+									object.floor
+								} из ${object.floors_total}</div>
                             </div>
                         </a>
                         <!-- // card -->
                     </article>`;
 
-    listingContainer.insertAdjacentHTML('beforeend', markup);
+	cardsContainer.insertAdjacentHTML('beforeend', markup);
 }
 
-export function clearListingContainer(){
-    const listingContainer = document.querySelector('#listingContainer');
-    listingContainer.innerHTML = '';
 
+
+export function renderPage(cards){
+  renderContainer();
+cards.forEach((card)=>{ 
+  renderCard(card);
+})
 }
 
 export function toggleFavouriteIcon(elementIcon, isFaved){
-    if (isFaved) {
-        elementIcon.classList.add('card__like--active');
-	} else {
-        elementIcon.classList.remove('card__like--active');
-    }
+  if (isFaved) {
+      elementIcon.classList.add('card__like--active');
+} else {
+      elementIcon.classList.remove('card__like--active');
+  }
 }

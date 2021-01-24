@@ -1,4 +1,6 @@
-export function render(object){
+export function render(object, isFaved) {
+    console.log("render -> isFaved", isFaved);
+
     const appContainer = document.querySelector('#app');
 
     const markup = `
@@ -32,7 +34,7 @@ export function render(object){
                             <!-- Добавить в избранное -->
                             <button id = "addToFavouriteBtn"class="button-favourite">
                                 <i class="fas fa-heart"></i> <span>В избранное</span>
-                            </button>
+                            </button> 
 
                         </div>
 
@@ -166,21 +168,31 @@ export function render(object){
     appContainer.insertAdjacentHTML('beforeend', markupModal);
 }
 
-export function showModal(){
+export function showModal() {
     document.querySelector('.modal-wrapper').classList.remove('none');
 }
 
-export function hideModal(){
+export function hideModal() {
     document.querySelector('.modal-wrapper').classList.add('none');
 }
 
-export function getInput () {
+export function getInput() {
     const formData = {};
     formData.name = document.querySelector('#form-name').value;
     formData.phone = document.querySelector('#form-phone').value;
     return formData;
 }
-export function clearInput(){
+export function clearInput() {
     document.querySelector('#form-name').value = '';
     document.querySelector('#form-phone').value = '';
 }
+export function toggleFavouriteButton(isFaved) {
+    const btn = document.querySelector('#addToFavouriteBtn');
+    if (isFaved) {
+        btn.classList.add('button-favourite--active');
+        btn.querySelector('span').textContent = 'В избранном';
+    } else {
+        btn.classList.remove('button-favourite--active');
+        btn.querySelector('span').textContent = 'В избранное';
+    }
+} 
